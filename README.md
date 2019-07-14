@@ -1,2 +1,10 @@
-# advent_of_code_py
-solve advent of code with python
+# advent of py
+I started using [python](https://www.python.org/) on 2008, so I'm using
+this repo to showcase my skills with it by solving the advent of code
+
+# how to use it
+tbd
+
+# license
+The contents of this repository are covered under the [MIT License](LICENSE.txt).
+
