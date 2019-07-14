@@ -5,7 +5,7 @@ this repo to showcase my skills with it by solving the
 
 # how to use it
 ```buildoutcfg
-pip install requirements.txt
+pip install -r requirements.txt
 python main.py
 ```
 
