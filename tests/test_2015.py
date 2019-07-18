@@ -46,6 +46,15 @@ def test_day_02_b():
     assert day_02_b() == 3783758
 
 
+@pytest.mark.parametrize("instructions, houses", [
+    ('>', 2),
+    ('^>v<', 4),
+    ('^v^v^v^v^v', 2)
+])
+def test_how_many_houses_were_visited(instructions, houses):
+    assert len(get_visited_houses(instructions)) == houses
+
+
 def test_day_03_a():
     assert day_03_a() == 2565
 

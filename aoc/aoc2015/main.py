@@ -5,17 +5,13 @@ from aoc.utils import *
 
 
 # day 01
+def _follow_floor_instruction(current_floor: int, instruction: str):
+    return (1 if instruction == "(" else -1) + current_floor
+
+
 def get_floor(instructions: str) -> int:
     """get the floor to go to for the given instructions"""
-    floor = 0
-    for word in instructions:
-        if word == "(":
-            floor += 1
-        elif word == ")":
-            floor -= 1
-        else:
-            raise ValueError(f"{word} is not a valid instruction")
-    return floor
+    return functools.reduce(_follow_floor_instruction, instructions, 0)
 
 
 def get_first_step_basement(instructions: str) -> int:
@@ -48,11 +44,11 @@ def day_01_b() -> int:
 # day 02
 def get_wrapping_paper(*args) -> int:
     squares = [a * b for a, b in itertools.combinations(args, 2)]
-    return min(squares) + sum(2 * sq for sq in squares)
+    return min(squares) + sum(l_mult(squares, 2))
 
 
 def get_ribbon(*args) -> int:
-    return sum(l_mult(min_n(args, 2), 2)) + product(args)
+    return sum(l_mult(n_smallest(args, 2), 2)) + product(args)
 
 
 def day_02_a() -> int:
@@ -68,14 +64,39 @@ def day_02_b() -> int:
 
 
 # day 03
+def get_visited_houses(instructions: str) -> set:
+    grid = {(0, 0)}
+    current_pos = (0, 0)
+
+    move = {
+        '>': (1, 0),
+        '<': (-1, 0),
+        '^': (0, 1),
+        'v': (0, -1)
+    }
+
+    for instruction in instructions:
+        current_pos = tuple(vec_add(current_pos, move[instruction]))
+        grid.add(tuple(current_pos))
+
+    return grid
+
+
 def day_03_a() -> int:
     """solve first challenge for day 03"""
-    return 0
+    return len(get_visited_houses(read_instructions('aoc/aoc2015/input/03A.txt')))
 
 
 def day_03_b() -> int:
     """solve second challenge for day 03"""
-    return 0
+    instructions = read_instructions('aoc/aoc2015/input/03A.txt')
+    santa_instructions = ''.join(w for i, w in enumerate(instructions) if is_odd(i))
+    robo_instructions = ''.join(w for i, w in enumerate(instructions) if is_even(i))
+
+    santa_houses = get_visited_houses(santa_instructions)
+    robo_houses = get_visited_houses(robo_instructions)
+
+    return len(merge_dicts(santa_houses, robo_houses))
 
 
 # day 04
