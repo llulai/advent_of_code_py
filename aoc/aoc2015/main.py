@@ -1,6 +1,6 @@
 """aoc 2015 implementation"""
 import itertools
-
+import hashlib
 from aoc.utils import *
 
 
@@ -100,14 +100,23 @@ def day_03_b() -> int:
 
 
 # day 04
+def get_min_hash(key, start) -> int:
+    i = 0
+    while True:
+        code = hashlib.md5(str.encode(f'{key}{i}'))
+        if code.hexdigest().startswith(start):
+            return i
+        i += 1
+
+
 def day_04_a() -> int:
     """solve first challenge for day 04"""
-    return 0
+    return get_min_hash("bgvyzdsv", "00000")
 
 
 def day_04_b() -> int:
     """solve second challenge for day 04"""
-    return 0
+    return get_min_hash("bgvyzdsv", "000000")
 
 
 # day 05
