@@ -7,6 +7,9 @@ def read_instructions(filename: str) -> str:
     with open(filename) as file:
         return file.read()
 
+def read_int_list(filename: str) -> list:
+    return l_to_int(read_instructions(filename).split('\n'))
+
 
 def product(iterable):
     """returns the product of the elements of the iterable"""
